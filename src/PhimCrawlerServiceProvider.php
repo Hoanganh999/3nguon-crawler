@@ -7,7 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as SP;
 use Phim\Crawler\PhimCrawler\Console\CrawlerScheduleCommand;
 use Phim\Crawler\PhimCrawler\Option;
 
-class OphimCrawlerServiceProvider extends SP
+class PhimCrawlerServiceProvider extends SP
 {
     /**
      * Get the policies defined on the provider.
@@ -23,31 +23,31 @@ class OphimCrawlerServiceProvider extends SP
     {
 
         config(['plugins' => array_merge(config('plugins', []), [
-            'hacoidev/ophim-crawler' =>
+            'hacoidev/3nguon-crawler' =>
             [
                 'name' => 'Apii.Online Crawler',
-                'package_name' => 'hacoidev/ophim-crawler',
+                'package_name' => 'hacoidev/3nguon-crawler',
                 'icon' => 'la la-code-fork',
                 'entries' => [
-                    ['name' => 'Crawler', 'icon' => 'la la-hand-grab-o', 'url' => backpack_url('/plugin/ophim-crawler')],
-                    ['name' => 'Option', 'icon' => 'la la-cog', 'url' => backpack_url('/plugin/ophim-crawler/options')],
+                    ['name' => 'Crawler', 'icon' => 'la la-hand-grab-o', 'url' => backpack_url('/plugin/3nguon-crawler')],
+                    ['name' => 'Option', 'icon' => 'la la-cog', 'url' => backpack_url('/plugin/3nguon-crawler/options')],
                 ],
             ]
         ])]);
 
         config(['logging.channels' => array_merge(config('logging.channels', []), [
-            'ophim-crawler' => [
+            '3nguon-crawler' => [
                 'driver' => 'daily',
-                'path' => storage_path('logs/hacoidev/ophim-crawler.log'),
+                'path' => storage_path('logs/hacoidev/3nguon-crawler.log'),
                 'level' => env('LOG_LEVEL', 'debug'),
                 'days' => 7,
             ],
         ])]);
 
-        config(['ophim.updaters' => array_merge(config('ophim.updaters', []), [
+        config(['3nguon.updaters' => array_merge(config('3nguon.updaters', []), [
             [
-                'name' => 'Ophim Crawler',
-                'handler' => 'Ophim\Crawler\OphimCrawler\Crawler'
+                'name' => '3nguon Crawler',
+                'handler' => 'Phim\Crawler\PhimCrawler\Crawler'
             ]
         ])]);
     }
@@ -63,12 +63,12 @@ class OphimCrawlerServiceProvider extends SP
         });
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ophim-crawler');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', '3nguon-crawler');
     }
 
     protected function loadScheduler()
     {
         $schedule = $this->app->make(Schedule::class);
-        $schedule->command('ophim:plugins:ophim-crawler:schedule')->cron(Option::get('crawler_schedule_cron_config', '*/10 * * * *'))->withoutOverlapping();
+        $schedule->command('3nguon:plugins:3nguon-crawler:schedule')->cron(Option::get('crawler_schedule_cron_config', '*/10 * * * *'))->withoutOverlapping();
     }
 }
