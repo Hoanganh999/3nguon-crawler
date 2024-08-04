@@ -3,7 +3,7 @@
 @php
     $defaultBreadcrumbs = [
         trans('backpack::crud.admin') => backpack_url('dashboard'),
-        'Crawler' => backpack_url('plugin/ophim-crawler'),
+        'Crawler' => backpack_url('plugin/3nguon-crawler'),
     ];
 
     $breadcrumbs = $breadcrumbs ?? $defaultBreadcrumbs;
@@ -304,7 +304,7 @@
 
             const fetchApi = async (link, from, to) => {
                 isFetching = true;
-                const response = await fetch("{{ backpack_url('plugin/ophim-crawler/fetch') }}?" +
+                const response = await fetch("{{ backpack_url('plugin/3nguon-crawler/fetch') }}?" +
                     new URLSearchParams({
                         link,
                         from,
