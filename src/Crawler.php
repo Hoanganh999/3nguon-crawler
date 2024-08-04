@@ -1,16 +1,16 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler;
+namespace Phim\Crawler\PhimCrawler;
 
-use Ophim\Core\Models\Movie;
+use Phim\Core\Models\Movie;
 use Illuminate\Support\Str;
-use Ophim\Core\Models\Actor;
-use Ophim\Core\Models\Category;
-use Ophim\Core\Models\Director;
-use Ophim\Core\Models\Episode;
-use Ophim\Core\Models\Region;
-use Ophim\Core\Models\Tag;
-use Ophim\Crawler\OphimCrawler\Contracts\BaseCrawler;
+use Phim\Core\Models\Actor;
+use Phim\Core\Models\Category;
+use Phim\Core\Models\Director;
+use Phim\Core\Models\Episode;
+use Phim\Core\Models\Region;
+use Phim\Core\Models\Tag;
+use Phim\Crawler\PhimCrawler\Contracts\BaseCrawler;
 
 class Crawler extends BaseCrawler
 {
