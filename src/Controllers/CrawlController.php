@@ -1,14 +1,14 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler\Controllers;
+namespace Phim\Crawler\PhimCrawler\Controllers;
 
 
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Ophim\Crawler\OphimCrawler\Crawler;
-use Ophim\Core\Models\Movie;
+use Phim\Crawler\PhimCrawler\Crawler;
+use Phim\Core\Models\Movie;
 
 /**
  * Class CrawlController
@@ -52,13 +52,13 @@ class CrawlController extends CrudController
         $categories = [];
         $regions = [];
         try {
-            $categories = Cache::remember('ophim_categories', 86400, function () {
-                $data = json_decode(file_get_contents(sprintf('%s/the-loai', config('ophim_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
+            $categories = Cache::remember('3nguon_categories', 86400, function () {
+                $data = json_decode(file_get_contents(sprintf('%s/the-loai', config('3nguon_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
                 return collect($data)->pluck('name', 'name')->toArray();
             });
 
-            $regions = Cache::remember('ophim_regions', 86400, function () {
-                $data = json_decode(file_get_contents(sprintf('%s/quoc-gia', config('ophim_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
+            $regions = Cache::remember('3nguon_regions', 86400, function () {
+                $data = json_decode(file_get_contents(sprintf('%s/quoc-gia', config('3nguon_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
                 return collect($data)->pluck('name', 'name')->toArray();
             });
         } catch (\Throwable $th) {
@@ -67,12 +67,12 @@ class CrawlController extends CrudController
 
         $fields = $this->movieUpdateOptions();
 
-        return view('ophim-crawler::crawl', compact('fields', 'regions', 'categories'));
+        return view('3nguon-crawler::crawl', compact('fields', 'regions', 'categories'));
     }
 
     public function crawl(Request $request)
     {
-        $pattern = sprintf('%s/phim/{slug}', config('ophim_crawler.domain', 'https://apii.online/apii'));
+        $pattern = sprintf('%s/phim/{slug}', config('3nguon_crawler.domain', 'https://apii.online/apii'));
         try {
             $link = str_replace('{slug}', $request['slug'], $pattern);
             $crawler = (new Crawler($link, request('fields', []), request('excludedCategories', []), request('excludedRegions', []), request('excludedType', []), request('forceUpdate', false)))->handle();
