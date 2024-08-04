@@ -1,6 +1,6 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler;
+namespace Phim\Crawler\PhimCrawler;
 
 use Backpack\Settings\app\Models\Setting;
 use Illuminate\Support\Facades\Cache;
@@ -41,7 +41,7 @@ class Option
     public static function getEntry()
     {
         return Setting::firstOrCreate([
-            'key' => 'hacoidev/ophim-crawler.options',
+            'key' => 'hacoidev/3nguon-crawler.options',
         ], [
             'name' => 'Options',
             'field' => json_encode(['name' => 'value', 'type', 'hidden']),
@@ -55,13 +55,13 @@ class Option
         $categories = [];
         $regions = [];
         try {
-            $categories = Cache::remember('ophim_categories', 86400, function () {
-                $data = json_decode(file_get_contents(sprintf('%s/the-loai', config('ophim_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
+            $categories = Cache::remember('3nguon_categories', 86400, function () {
+                $data = json_decode(file_get_contents(sprintf('%s/the-loai', config('3nguon_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
                 return collect($data)->pluck('name', 'name')->toArray();
             });
 
-            $regions = Cache::remember('ophim_regions', 86400, function () {
-                $data = json_decode(file_get_contents(sprintf('%s/quoc-gia', config('ophim_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
+            $regions = Cache::remember('3nguon_regions', 86400, function () {
+                $data = json_decode(file_get_contents(sprintf('%s/quoc-gia', config('3nguon_crawler.domain', 'https://apii.online/apii'))), true) ?? [];
                 return collect($data)->pluck('name', 'name')->toArray();
             });
         } catch (\Throwable $th) {
