@@ -1,11 +1,11 @@
 <?php
 
-namespace Ophim\Crawler\OphimCrawler;
+namespace Phim\Crawler\PhimCrawler;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as SP;
-use Ophim\Crawler\OphimCrawler\Console\CrawlerScheduleCommand;
-use Ophim\Crawler\OphimCrawler\Option;
+use Phim\Crawler\PhimCrawler\Console\CrawlerScheduleCommand;
+use Phim\Crawler\PhimCrawler\Option;
 
 class OphimCrawlerServiceProvider extends SP
 {
